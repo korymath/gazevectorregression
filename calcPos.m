@@ -1,16 +1,14 @@
 function [predPos,mdl] = calcPos(X,Y)
 
-XnormClean = normAndClean(X); 
-
 % find the good indexes to train the model on
 % when the sum of absolute values of the derivates is less than
 % a given threshold then this is a good training index
-absSumDiff = sum(abs(diff(XnormClean)),2);
-goodIDX = find(absSumDiff<mean(absSumDiff));
+absSumDiff = sum(abs(diff(X)),2);
+goodIDX = find(absSumDiff<0.05*mean(absSumDiff));
 
 % Build the good model
-mdl = fitlm(XnormClean(goodIDX,:),Y(goodIDX,:)); 
-% mdl = fitlm(XnormClean(goodIDX,:),Y(goodIDX,:),'quadratic','RobustOpts','on');
+% mdl = fitlm(X(goodIDX,:),Y(goodIDX,:)); 
+mdl = fitlm(X(goodIDX,:),Y(goodIDX,:),'quadratic','RobustOpts','on');
 
 % mdl = fitrsvm(XnormClean(goodIDX,:),Y(goodIDX,:),'Standardize',true,...
 %    'CacheSize','maximal','Verbose',1,'NumPrint',500,'Epsilon',0.1);
@@ -18,18 +16,19 @@ mdl = fitlm(XnormClean(goodIDX,:),Y(goodIDX,:));
 % t = templateTree('MaxNumSplits',512,'Surrogate','on');
 % mdl = fitensemble(XnormClean(goodIDX,:),Y(goodIDX,:),'LSBoost',100,t,'type','regression');
 
-% mdl = fitrsvm(XnormClean(goodIDX,:),Y(goodIDX,:),'Standardize',true,'ShrinkagePeriod',2000,...
-%     'CacheSize','maximal','Verbose',1,'NumPrint',2000,...
-%     'KernelFunction','gaussian','Solver','SMO','ClipAlphas',true,...
-%     'Epsilon',0.3,'KernelScale','auto');
+% mdl = fitrsvm(X(goodIDX,:),Y(goodIDX,:),'Standardize',true,...
+%     'CacheSize','maximal','Verbose',1,...
+%     'KernelFunction','gaussian','Solver','SMO',...
+%     'ClipAlphas',false,'ShrinkagePeriod',2000,...
+%     'Epsilon',0.05,'KernelScale','auto');
+
+% t = templateTree('MaxNumSplits',10,'Surrogate','on');
+% mdl = fitensemble(X(goodIDX,:),Y(goodIDX,:),'LSBoost',20,t,'type','regression','LearnRate',0.1);
 
 % mdl = fitrgp(XnormClean(goodIDX,:),Y(goodIDX,:),'Verbose',1);
 
 % predict the positions using the given model
-predPos = predict(mdl,XnormClean);   
-
-
-
+predPos = predict(mdl,X);   
 
 % mdl = fitrsvm(X(goodIDX,:),Y(goodIDX,:),'Standardize',true,'CacheSize','maximal',...
 %     'Verbose',1,'NumPrint',1000,'KernelScale','auto',...
@@ -42,10 +41,6 @@ predPos = predict(mdl,XnormClean);
 %     'KernelFunction','gaussian','Solver','SMO','ClipAlphas',true,...
 %     'Epsilon',0.3,'KernelScale','auto');
 % 
-% mdl = fitrsvm(X(goodIDX,:),Y(goodIDX,:),'Standardize',true,'ShrinkagePeriod',2000,...
-%     'CacheSize','maximal','Verbose',1,'NumPrint',2000,...
-%     'KernelFunction','gaussian','Solver','SMO','ClipAlphas',true,...
-%     'Epsilon',0.3,'KernelScale','auto');
 
 % mdl = fitlm(X(goodIDX,:),Y(goodIDX,:),'quadratic','RobustOpts','on');
 

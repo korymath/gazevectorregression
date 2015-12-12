@@ -7,7 +7,7 @@
 %   eyeData - input data.
 %   markerData - target data.
 
-x = normAndClean(trainSet.eyeData)';
+x = trainSet.eyeData';
 t = trainSet.markerData';
 
 % Choose a Training Function
@@ -15,7 +15,7 @@ t = trainSet.markerData';
 % 'trainlm' is usually fastest.
 % 'trainbr' takes longer but may be better for challenging problems.
 % 'trainscg' uses less memory. Suitable in low memory situations.
-trainFcn = 'trainlm';  % Bayesian Regularization backpropagation.
+trainFcn = 'trainbr';  % Bayesian Regularization backpropagation.
 
 % Create a Fitting Network
 hiddenLayerSize = 20; %30;
@@ -30,9 +30,9 @@ net.output.processFcns = {'removeconstantrows','mapminmax'};
 % For a list of all data division functions type: help nndivide
 net.divideFcn = 'dividerand';  % Divide data randomly
 net.divideMode = 'sample';  % Divide up every sample
-net.divideParam.trainRatio = 50/100;
-net.divideParam.valRatio = 25/100;
-net.divideParam.testRatio = 25/100;
+net.divideParam.trainRatio = 80/100;
+net.divideParam.valRatio = 10/100;
+net.divideParam.testRatio = 10/100;
 
 % Choose a Performance Function
 % For a list of all performance functions type: help nnperformance
@@ -49,15 +49,15 @@ net.plotFcns = {'plotperform','plottrainstate','ploterrhist', ...
 % Test the Network
 y = net(x);
 e = gsubtract(t,y);
-performance = perform(net,t,y)
+performance = perform(net,t,y);
 
 % Recalculate Training, Validation and Test Performance
 trainTargets = t .* tr.trainMask{1};
 valTargets = t .* tr.valMask{1};
 testTargets = t .* tr.testMask{1};
-trainPerformance = perform(net,trainTargets,y)
-valPerformance = perform(net,valTargets,y)
-testPerformance = perform(net,testTargets,y)
+trainPerformance = perform(net,trainTargets,y);
+valPerformance = perform(net,valTargets,y);
+testPerformance = perform(net,testTargets,y);
 
 % View the Network
 % view(net)

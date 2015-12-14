@@ -14,9 +14,19 @@ offset = zeros(3,size(resampVICON,1));
 
 % Get the starting index in the resampVICON array for 
 % the Right Forehead, Right Temple and Left Forehead
-rf = ((sortOrder(2)-1)*3)+1; % 4; % 2nd element = 2 in sortOrder
-rt = ((sortOrder(3)-1)*3)+1; % 10; % 3rd element = 4 in sortOrder
-lf = ((sortOrder(4)-1)*3)+1; % 7; % 4th element = 3 in sortOrder
+
+% This is data that includes the marker tip
+if (length(sortOrder) == 5)
+    rf = ((sortOrder(2)-1)*3)+1; % 4; % 2nd element = 2 in sortOrder
+    rt = ((sortOrder(3)-1)*3)+1; % 10; % 3rd element = 4 in sortOrder
+    lf = ((sortOrder(4)-1)*3)+1; % 7; % 4th element = 3 in sortOrder
+else
+    % this is data that does not have the marker as part of the data
+    % thus the right front is the first element of interest
+    rf = ((sortOrder(1)-1)*3)+1; 
+    rt = ((sortOrder(2)-1)*3)+1; 
+    lf = ((sortOrder(3)-1)*3)+1;
+end
 
 % Resort the data according to that sort order
 sortedData = [resampVICON(:,rf:rf+2) resampVICON(:,rt:rt+2) resampVICON(:,lf:lf+2)];

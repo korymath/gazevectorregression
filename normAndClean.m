@@ -4,4 +4,6 @@ function XnormClean = normAndClean(X)
 
     % TODO: remove any outliers in the inpout data that will mess with the fit
     XnormClean = hampel(Xnorm(:,:),10);
+
+%     XnormClean = X;
 end

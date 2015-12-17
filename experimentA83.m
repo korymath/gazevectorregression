@@ -3,14 +3,14 @@
 expStr = 'A83_CalibC_B_01_on_A83_Cups_B_01_NEWTEST';
 
 % Load training data
-[eyeData,markerData,tM,offset,trueMarker] = collectData({'A83_CalibC_B_01'});
+[eyeData,markerData,tM,offset,trueMarker] = collectData({'A83_CalibP_B_01'});
 % Build a model
 [predPos,predPosFilt,mdl] = calcGazeCart(eyeData,markerData);
 save([pwd '/TestingA83/trainSetA83_' expStr '.mat']);
 clear global -except expStr;
 
 % Load testing data
-[eyeData,markerData,tM,offset,trueMarker] = collectData({'A83_Cups_B_01'});
+[eyeData,markerData,tM,offset,trueMarker] = collectData({'A83_CalibP_B_01'});
 % Build a model
 [predPos,predPosFilt,mdl] = calcGazeCart(eyeData,markerData);
 save([pwd '/TestingA83/testSetA83_' expStr '.mat']);

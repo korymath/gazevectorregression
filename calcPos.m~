@@ -9,9 +9,9 @@ function [predPos,mdl] = calcPos(X,Y)
 
 % Build the good model
 % mdl = fitlm(X,Y,'quadratic'); 
-mdl = fitglm(X,Y,'quadratic','distr','normal'); 
+% mdl = fitglm(X,Y,'quadratic','distr','normal'); 
 % mdl = fitlm(X(goodIDX,:),Y(goodIDX,:)); 
-% mdl = fitlm(X,Y); %,'quadratic','RobustOpts','on');
+mdl = fitlm(X(goodIDX,:),Y(goodIDX,:),'quadratic','RobustOpts','on');
 
 % mdl = fitrsvm(X(goodIDX,:),Y(goodIDX,:),'Standardize',true,...
 %    'CacheSize','maximal','Verbose',1,'NumPrint',500,'Epsilon',0.1);

@@ -1,9 +1,9 @@
 function XnormClean = normAndClean(X)
     % normalize and standardize the input features
-    [XnormClean, ~, ~] = featureNormalize(X);
+%     [XnormClean, ~, ~] = featureNormalize(X);
 
     % TODO: remove any outliers in the inpout data that will mess with the fit
-    XnormClean = hampel(XnormClean,10);
+    XnormClean = hampel(X,10);
 
 %     XnormClean = X;
 end

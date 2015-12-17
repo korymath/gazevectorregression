@@ -49,12 +49,12 @@ errors.distErr = sqrt(((testSet.regFixPoints(:,1) - testSet.trueMarker(:,1)).^2)
 % This provides the mean error in CM.
 errors.meanErr = mean(errors.distErr)/10;
 
-figure;
-plot(errors.distErr/10,'LineWidth',2);
-hold on; plot(errors.meanErr*ones(1,length(errors.distErr)),'r-','LineWidth',4);
-% axis([0 inf 0 100]);
-title('Error vs. Sample Number', 'FontSize', 24);
-ylabel('Distance Error (cm)', 'FontSize', 24);
-xlabel('Sample Number', 'FontSize', 24);
+% figure;
+% plot(errors.distErr/10,'LineWidth',2);
+% hold on; plot(errors.meanErr*ones(1,length(errors.distErr)),'r-','LineWidth',4);
+% % axis([0 inf 0 100]);
+% title('Error vs. Sample Number', 'FontSize', 24);
+% ylabel('Distance Error (cm)', 'FontSize', 24);
+% xlabel('Sample Number', 'FontSize', 24);
 
 end

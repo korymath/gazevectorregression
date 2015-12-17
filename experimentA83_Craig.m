@@ -1,23 +1,23 @@
 % experimentA83 
 
-expStr = 'A83_CalibC_B_01_on_A83_Cups_B_01_NEWTEST';
+expStr = 'A83_CalibP_B_01_on_A83_Pasta_B_02_final';
 
-% % Load training data
-% [eyeData,markerData,tM,offset,trueMarker] = collectData({'A83_CalibP_B_01'});
-% % Build a model
+% Load training data
+[eyeData,markerData,tM,offset,trueMarker] = collectData({'A83_CalibP_B_01'});
+% Build a model
 % [predPos,predPosFilt,mdl] = calcGazeCart(eyeData,markerData);
-% save([pwd '/TestingA83/trainSetA83_' expStr '.mat']);
-% clear global -except expStr;
-% 
-% % Load testing data
-% [eyeData,markerData,tM,offset,trueMarker] = collectData({'A83_CalibP_B_01'}); % A83_Pasta_B_02
-% % Build a model
-% % [predPos,predPosFilt,mdl] = calcGazeCart(eyeData,markerData);
-% save([pwd '/TestingA83/testSetA83_' expStr '.mat']);
-% clear global -except expStr;
+save([pwd '/TestingA83/trainSetA83_' expStr '.mat']);
+clear global -except expStr;
+
+% Load testing data
+[eyeData,markerData,tM,offset,trueMarker] = collectData({'A83_Pasta_B_02'}); % A83_Pasta_B_02
+% Build a model
+% [predPos,predPosFilt,mdl] = calcGazeCart(eyeData,markerData);
+save([pwd '/TestingA83/testSetA83_' expStr '.mat']);
+clear global -except expStr;
 
 % run testing on test set
-[trainSet,testSet,errors] = testModelCartA83(expStr);
+[trainSet,testSet] = testModelCartA83_Craig(expStr);
 
 % Load the cleaned data from Craigs wor
 craigTrain = load([pwd '/TestingA83/craig/A_83_CalibP_B_1_Clean.mat']);
@@ -30,7 +30,7 @@ craigTrain.eyeData = [craigTrain.lxpnifd; craigTrain.lypnifd;...
 craigTrain.markerData = resample(trainSet.markerData,...
     length(craigTrain.eyeData),length(trainSet.markerData),2);
 
-craigTest = load([pwd '/TestingA83/craig/A_83_CalibP_B_1_Clean.mat']);
+craigTest = load([pwd '/TestingA83/craig/A_83_Pasta_B_2_Clean.mat']);
 % load([pwd '/TestingA83/craig/A_83_Pasta_B_2_Clean.mat']);
 
 craigTest.eyeData = [craigTest.lxpnifd; craigTest.lypnifd;...
@@ -44,7 +44,7 @@ craigTest.markerData = resample(testSet.markerData,...
     calcGazeCart(craigTrain.eyeData,craigTrain.markerData);
 
 % Check the correlation between the matrices
-[r,p]=corr(craigTrain.eyeData,craigTrain.markerData,'rows','complete');
+% [r,p]=corr(craigTrain.eyeData,craigTrain.markerData,'rows','complete');
 
 % Test the model on the testing data
 craigTest.predPos = zeros(size(craigTest.markerData));
@@ -67,9 +67,11 @@ craigTest.distErr = sqrt(((craigTest.finalFit(:,1) - craigTest.trueMarkerFinal(:
     ((craigTest.finalFit(:,2) - craigTest.trueMarkerFinal(:,2)).^2) + ...
     ((craigTest.finalFit(:,3) - craigTest.trueMarkerFinal(:,3)).^2));
 
+craigTest.distErrMean = nanmean(craigTest.distErr)/10
+
 figure;
 plot(craigTest.distErr/10,'LineWidth',2);
-hold on; plot(craigTest.distErr*ones(1,length(craigTest.distErr)),'r-','LineWidth',4);
+hold on; plot(craigTest.distErrMean*ones(1,length(craigTest.distErr)),'r-','LineWidth',4);
 % axis([0 inf 0 100]);
 title('Error vs. Sample Number', 'FontSize', 24);
 ylabel('Distance Error (cm)', 'FontSize', 24);
@@ -80,10 +82,10 @@ nanmean(craigTest.distErr)/10
 % errors.meanErr
 
 % compare the true marker points and the regressed point
-makePredFigCartA83(testSet.trueMarker,craigTest.regFixPoints);
+makePredFigCartA83(craigTest.trueMarkerFinal,craigTest.finalFit);
 
 % combine into an output file and write to csv
-outputPoints = testSet.regFixPoints;
+outputPoints = craigTest.trueMarkerFinal;
 csvwrite([pwd '/TestingA83/testA83_output' expStr '.csv'],outputPoints);
 
 

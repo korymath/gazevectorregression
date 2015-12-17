@@ -9,24 +9,24 @@ function [predPos,mdl] = calcPos(X,Y)
 
 % Build the good model
 % mdl = fitlm(X,Y,'quadratic'); 
-mdl = fitglm(X,Y,'quadratic','distr','normal'); 
+% mdl = fitglm(X,Y,'quadratic','distr','normal'); 
 % mdl = fitlm(X(goodIDX,:),Y(goodIDX,:)); 
-% mdl = fitlm(X,Y); %,'quadratic','RobustOpts','on');
+% mdl = fitlm(X,Y,'quadratic','RobustOpts','on');
 
-% mdl = fitrsvm(X(goodIDX,:),Y(goodIDX,:),'Standardize',true,...
+% mdl = fitrsvm(X,Y,'Standardize',true,...
 %    'CacheSize','maximal','Verbose',1,'NumPrint',500,'Epsilon',0.1);
 
 % t = templateTree('Surrogate','On');
-% mdl = fitensemble(X(goodIDX,:),Y(goodIDX,:),'LSBoost',1000,t,'type','regression');
+% mdl = fitensemble(X,Y,'LSBoost',1000,t,'type','regression');
 
-% mdl = fitrgp(X(goodIDX,:),Y(goodIDX,:),'Verbose',1,'ComputationMethod','v');
+mdl = fitrgp(X,Y,'Verbose',1); %,'ComputationMethod','v','FitMethod','exact','PredictMethod','exact');
 
 % mdl = fitrtree(X(goodIDX,:),Y(goodIDX,:));
 
-% mdl = fitrsvm(X(goodIDX,:),Y(goodIDX,:),'Standardize',true,...
+% mdl = fitrsvm(X,Y,'Standardize',true,...
 %     'CacheSize','maximal','Verbose',1,...
 %     'KernelFunction','gaussian','Solver','SMO',...
-%     'ClipAlphas',false,'ShrinkagePeriod',1000,...
+%     'ClipAlphas',false,'ShrinkagePeriod',0,...
 %     'Epsilon',0.1,'KernelScale','auto');
 
 % t = templateTree('MaxNumSplits',10,'Surrogate','on');

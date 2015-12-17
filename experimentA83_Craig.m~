@@ -1,6 +1,6 @@
 % experimentA83 
 
-expStr = 'A83_CalibC_B_01_on_A83_Cups_B_01_NEWTEST';
+expStr = 'A83_CalibP_B_01';
 
 % % Load training data
 % [eyeData,markerData,tM,offset,trueMarker] = collectData({'A83_CalibP_B_01'});
@@ -44,7 +44,7 @@ craigTest.markerData = resample(testSet.markerData,...
     calcGazeCart(craigTrain.eyeData,craigTrain.markerData);
 
 % Check the correlation between the matrices
-[r,p]=corr(craigTrain.eyeData,craigTrain.markerData,'rows','complete');
+% [r,p]=corr(craigTrain.eyeData,craigTrain.markerData,'rows','complete');
 
 % Test the model on the testing data
 craigTest.predPos = zeros(size(craigTest.markerData));
@@ -61,17 +61,28 @@ upsampRegFix = resample(craigTest.predPos,length(testSet.offset),length(craigTes
 craigTest.regFixPoints = transformHEADtoVICON(upsampRegFix,testSet.tM,testSet.offset);
 
 craigTest.finalFit = resample(craigTest.regFixPoints,length(craigTest.markerData),length(craigTest.regFixPoints));
+craigTest.trueMarkerFinal = resample(testSet.trueMarker,length(craigTest.markerData),length(testSet.trueMarker));
 
-craigTest.distErr = sqrt(((craigTest.regFixPoints(:,1) - testSet.trueMarker(:,1)).^2) + ...
-    ((craigTest.regFixPoints(:,2) - testSet.trueMarker(:,2)).^2) + ...
-    ((craigTest.regFixPoints(:,3) - testSet.trueMarker(:,3)).^2));
+craigTest.distErr = sqrt(((craigTest.finalFit(:,1) - craigTest.trueMarkerFinal(:,1)).^2) + ...
+    ((craigTest.finalFit(:,2) - craigTest.trueMarkerFinal(:,2)).^2) + ...
+    ((craigTest.finalFit(:,3) - craigTest.trueMarkerFinal(:,3)).^2));
+
+craigTest.distErrMean = nanmean(craigTest.distErr)/10
+
+figure;
+plot(craigTest.distErr/10,'LineWidth',2);
+hold on; plot(craigTest.distErrMean*ones(1,length(craigTest.distErr)),'r-','LineWidth',4);
+% axis([0 inf 0 100]);
+title('Error vs. Sample Number', 'FontSize', 24);
+ylabel('Distance Error (cm)', 'FontSize', 24);
+xlabel('Sample Number', 'FontSize', 24);
 
 nanmean(craigTest.distErr)/10
 
 % errors.meanErr
 
 % compare the true marker points and the regressed point
-makePredFigCartA83(testSet.trueMarker,craigTest.regFixPoints);
+makePredFigCartA83(craigTest.trueMarkerFinal,craigTest.finalFit);
 
 % combine into an output file and write to csv
 outputPoints = testSet.regFixPoints;

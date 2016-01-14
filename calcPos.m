@@ -11,7 +11,7 @@ function [predPos,mdl] = calcPos(X,Y)
 % mdl = fitlm(X,Y,'quadratic'); 
 % mdl = fitglm(X,Y,'quadratic','distr','normal'); 
 % mdl = fitlm(X(goodIDX,:),Y(goodIDX,:)); 
-% mdl = fitlm(X,Y,'quadratic','RobustOpts','on');
+mdl = fitlm(X,Y,'quadratic','RobustOpts','on');
 
 % mdl = fitrsvm(X,Y,'Standardize',true,...
 %    'CacheSize','maximal','Verbose',1,'NumPrint',500,'Epsilon',0.1);
@@ -19,7 +19,7 @@ function [predPos,mdl] = calcPos(X,Y)
 % t = templateTree('Surrogate','On');
 % mdl = fitensemble(X,Y,'LSBoost',1000,t,'type','regression');
 
-mdl = fitrgp(X,Y,'Verbose',1); %,'ComputationMethod','v','FitMethod','exact','PredictMethod','exact');
+% mdl = fitrgp(X,Y,'Verbose',1); %,'ComputationMethod','v','FitMethod','exact','PredictMethod','exact');
 
 % mdl = fitrtree(X(goodIDX,:),Y(goodIDX,:));
 

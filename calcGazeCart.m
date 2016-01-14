@@ -15,6 +15,4 @@ end
 
 % makePredFigCart(markerData,predPos,predPosFilt);
 
-% testModelCartNew
-
 end

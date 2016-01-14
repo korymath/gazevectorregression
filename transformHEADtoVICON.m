@@ -6,7 +6,7 @@ function TP = transformHEADtoVICON(markerData,transformMatrix,offset)
 TP = zeros(length(markerData),3);
 
 for i=1:size(TP,1);    
-    TP(i,:) = (markerData(i,:)/transformMatrix(:,:,i))+offset(:,1)';
+    TP(i,:) = (markerData(i,:)/transformMatrix(:,:,i))+offset(:,i)';
 end
 
 end

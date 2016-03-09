@@ -1,6 +1,7 @@
 % experimentA16 
 
 expStr = 'A16_CalibP_B_01_on_Pasta';
+% expStr = 'A16_CalibP_B_01_on_itself';
 
 % Load training data
 [eyeData,markerData,tM,offset,trueMarker] = collectDataA16({'A16_CalibP_B_01_coReg'});

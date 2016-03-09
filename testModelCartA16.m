@@ -63,7 +63,12 @@ errors.meanErr = nanmean(errors.distErr)/10;
 % ylabel('Distance Error (cm)', 'FontSize', 24);
 % xlabel('Sample Number', 'FontSize', 24);
 
-outputPoints = testSet.regFixPoints;
-csvwrite([pwd '/TestingA16/testA16_output' expStr '.csv'],outputPoints);
+filename = [pwd '/TestingA16/testA16_output' expStr '.csv'];
+
+fid = fopen(filename, 'w');
+fprintf(fid, 'fitPtX \t fitPtY \t fitPtZ \t LeftPupil_X \t LeftPupil_Y \t RightPupil_X \t RightPupil_Y \n');
+fclose(fid);
+
+dlmwrite(filename, [testSet.regFixPoints testSet.eyeData], '-append', 'precision', '%.6f', 'delimiter', '\t');
 
 end

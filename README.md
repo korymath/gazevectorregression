@@ -1,4 +1,4 @@
-# gazevectorregression
+# Gaze Vector Regression Testing
 
 Adding some gaze vector regression
 

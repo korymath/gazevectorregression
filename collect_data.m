@@ -88,6 +88,7 @@ trueMarker = allVICON(:,1:3);
 
 eyeData = allDLAB;
 
-info = allDetails;
+% Get the calibration information indecies
+info = get_cal_info(allDetails);
 
 end

@@ -24,5 +24,9 @@ save([pwd '/data/proc/testSet_' expStr '.mat']);
 % run testing on test set
 [trainSet,testSet,errors] = test_model(expStr);
 
+% remove the training and testing saved data
+delete([pwd '/data/proc/trainSet_' expStr '.mat']);
+delete([pwd '/data/proc/testSet_' expStr '.mat']);
+
 end
 

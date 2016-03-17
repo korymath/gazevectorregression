@@ -59,6 +59,7 @@ for fileIdx = 1:length(files)
         makefigs_group(exp_var.expStr,errDistVec,errDistLen,errMean);
         save(filename)
     else
+        disp(filename);
         disp('file already processed');
     end
 end

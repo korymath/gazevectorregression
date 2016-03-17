@@ -1,4 +1,4 @@
-function [trainSet,testSet,errors] = testModelCart(expStr)
+function [trainSet,testSet,errors] = test_model(expStr)
 
 % Get the Training Set and Trained Model
 if ~exist('trainSet','var')

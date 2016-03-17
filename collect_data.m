@@ -107,10 +107,10 @@ switch condFlag
         slice = info.sweepIdx;
     case 'grid'
         slice = info.gridIdx;
-    case 'fixed'
-        slice = info.headfixedIdx;
     case 'free'
         slice = info.headfreeIdx;
+    case 'fixed'
+        slice = info.headfixedIdx;
     case 'task'
         slice = info.taskIdx;
     otherwise

@@ -9,7 +9,7 @@
 exp_var.trainStr = 'A12_CalibC_E_01_combined_calNum1';
 exp_var.testStr = 'A12_CalibC_E_01_combined_calNum1';
 
-segments = {'all','fixed','free','task'};
+segments = {'all','free','fixed','task'};
 N = length(segments);
 
 errMean = zeros(N,N);

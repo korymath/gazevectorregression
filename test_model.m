@@ -54,6 +54,7 @@ errors.distErr = sqrt(((testSet.regFixPoints(:,1) - testSet.trueMarker(:,1)).^2)
 
 % This provides the mean error in CM.
 errors.meanErr = nanmean(errors.distErr)/10;
+errors.stddevErr = nanstd(errors.distErr)/10;
 
 % make a prediction figure
 makefig_prediction_cart(testSet.trueMarker,testSet.regFixPoints)

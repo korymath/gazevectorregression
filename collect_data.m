@@ -8,7 +8,7 @@ allDetails = [];
 
 for strNum = 1:length(strCell)
     
-    dataIn = load([pwd '/data/' strCell{strNum} '.mat']);
+    dataIn = load([pwd '/data/' strCell{strNum}]);
     dataHeaders = dataIn.cHeader;
     
     try

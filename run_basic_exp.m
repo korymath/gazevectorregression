@@ -6,47 +6,61 @@
 % 'free': head free data
 % 'task': task data
 
-exp_var.trainStr = 'A52_CalibC_E_01_combined_calNum1';
-exp_var.testStr = 'A52_CalibC_E_01_combined_calNum1';
+k = dir([pwd '/data/*.mat']);
+files = {k.name}';
 
-segments = {'all','free','fixed','task'};
-N = length(segments);
+for fileIdx = 1:length(files)
+    
+    exp_var.trainStr = files{fileIdx};
+    exp_var.testStr = files{fileIdx};
+    exp_var.fullExpStr = strcat(exp_var.trainStr,'_on_',exp_var.testStr,'.mat');
+    
+    segments = {'all','free','fixed','task'};
+    N = length(segments);
+    
+    errMean = zeros(N,N);
+    errStd = zeros(N,N);
+    errDistErr = cell(N,N);
+    
+    errDistVec = [];
+    errDistLen = [];
+    
+    k = 1;
+    
+    filename = [pwd '/data/proc/output_' exp_var.fullExpStr];
+    if ~(exist(filename, 'file') == 2)
+        for i = 1:length(segments)
+            for j = 1:length(segments)
+                
+                % Define experiment for all on all
+                exp_var.trainCond = segments{i};
+                exp_var.testCond = segments{j};
+                exp_var.expStr = strcat(exp_var.trainStr,'_',exp_var.trainCond,'_on_',...
+                    exp_var.testStr,'_',exp_var.testCond);
+                [errors, calType] = exp_wrap(exp_var);
+                
+                if (calType == 0)
+                    errMean(i,j) = 0;
+                    errStd(i,j) = 0;
+                    errDistErr{i,j} = 0;
+                else
+                    errMean(i,j) = errors.meanErr;
+                    errStd(i,j) = errors.stddevErr;
+                    errDistErr{i,j} = errors.distErr/10;
+                end
 
-errMean = zeros(N,N);
-errStd = zeros(N,N);
-errDistErr = cell(N,N);
-
-errDistVec = [];
-errDistLen = [];
-
-k = 1;
-
-for i = 1:length(segments)
-    for j = 1:length(segments)
-        
-        % Define experiment for all on all
-        exp_var.trainCond = segments{i};
-        exp_var.testCond = segments{j};
-        exp_var.expStr = strcat(exp_var.trainStr,'_',exp_var.trainCond,'_on_',...
-            exp_var.testStr,'_',exp_var.testCond);
-        errors = exp_wrap(exp_var);
-        
-        errMean(i,j) = errors.meanErr;
-        errStd(i,j) = errors.stddevErr;
-        errDistErr{i,j} = errors.distErr/10;
-        
-        errDistVec = [errDistVec; errDistErr{i,j}];
-        errDistLen = [errDistLen, k*ones(1,length(errDistErr{i,j}))];
-        
-        k = k + 1
+                errDistVec = [errDistVec; errDistErr{i,j}];
+                errDistLen = [errDistLen, k*ones(1,length(errDistErr{i,j}))];
+                
+                k = k + 1;
+                disp(['iter: ' num2str(k)]);
+            end
+        end
+        makefigs_group(exp_var.expStr,errDistVec,errDistLen,errMean);
+        save(filename)
+    else
+        disp('file already processed');
     end
 end
 
-%% Build some nice figures from the experiment
-figure;
-boxplot(errDistVec,errDistLen,'Notch','on')
 
-figure;
-imagesc(errMean); colorbar; colormap(jet);
-
-save run.mat

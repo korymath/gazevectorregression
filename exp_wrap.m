@@ -1,4 +1,4 @@
-function [ errors ] = exp_wrap( exp_var )
+function [ errors, calType ] = exp_wrap( exp_var )
 %EXP_WRAP This function wraps experiments for batch processing
     % It allows for some basic command line scripting for the functions
     
@@ -10,6 +10,12 @@ testCond = exp_var.testCond;
     
 % Load training data
 [eyeData,markerData,tM,offset,trueMarker,details] = collect_data({trainStr},trainStr(1:3),trainCond);
+
+if isempty(eyeData)
+    errors = NaN;
+    calType = 0;
+    return
+end
 
 % Build a model
 [predPos,predPosFilt,mdl] = build_models(eyeData,markerData);
@@ -23,6 +29,15 @@ save([pwd '/data/proc/testSet_' expStr '.mat']);
 
 % run testing on test set
 [trainSet,testSet,errors] = test_model(expStr);
+
+% remove the training and testing saved data
+delete([pwd '/data/proc/trainSet_' expStr '.mat']);
+delete([pwd '/data/proc/testSet_' expStr '.mat']);
+
+calType = 1;
+if ~isempty(details.gridIdx)
+    calType = 2;
+end
 
 end
 

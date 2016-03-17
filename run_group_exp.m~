@@ -22,5 +22,26 @@ for i=1:length(files)
 end
 
 % Process all the sweep files
+for i=1:length(dataSweep)
+    errMeanSweep(:,:,i) = dataSweep{i}.errMean;
+    errStdSweep(:,:,i) = dataSweep{i}.errStd;
+end
 
 % Process all the grid files
+for i=1:length(dataGrid)
+    errMeanGrid(:,:,i) = dataGrid{i}.errMean;
+    errStdGrid(:,:,i) = dataGrid{i}.errStd;
+end
+
+errMeanAll(errMeanAll == 0) = NaN;
+errMeanSweep(errMeanSweep == 0) = NaN;
+errMeanGrid(errMeanGrid
+
+errMeanAllMean = mean(errMeanAll,3);
+errMeanSweepMean = mean(errMeanSweep,3);
+errMeanGridMean = mean(errMeanGrid,3);
+
+% errMeanAllStd = nanstd(errMeanAll,3);
+% errMeanSweepStd = nanstd(errMeanSweep,3);
+% errMeanGridStd = nanstd(errMeanGrid,3);
+

@@ -19,7 +19,7 @@ errDistErr = cell(N,N);
 errDistVec = [];
 errDistLen = [];
 
-k = 0;
+k = 1;
 
 for i = 1:length(segments)
     for j = 1:length(segments)
@@ -46,3 +46,7 @@ end
 figure;
 boxplot(errDistVec,errDistLen,'Notch','on')
 
+figure;
+imagesc(errMean); colorbar; colormap(jet);
+
+save run.mat

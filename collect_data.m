@@ -59,6 +59,18 @@ for strNum = 1:length(strCell)
         end
     end
     
+    if length(iVICON) < 5
+        try
+            iVICON = [find(strcmp(dataHeaders,'M:Wand:Tip:X')),...
+                find(strcmp(dataHeaders,['M:' subId '_2:RFHD:X'])),...
+                find(strcmp(dataHeaders,['M:' subId '_2:RBHD:X'])),...
+                find(strcmp(dataHeaders,['M:' subId '_2:LFHD:X'])),...
+                find(strcmp(dataHeaders,['M:' subId '_2:LBHD:X']))];
+        catch ME
+            print(ME);
+        end
+    end
+    
     inputCols = [];
     for i=1:length(iVICON)
         % order of the input columns needs to be strictly defined
@@ -104,13 +116,13 @@ info = get_cal_info(allDetails);
 
 %% Use the conditions to return only the data for this experiment
 %   Use the condition flag to slice the data based on the condition given
-    % conditions can be set by using the following flags:
-    % 'all': all data
-    % 'sweep': sweep data
-    % 'grid': grid data
-    % 'fixed': head fixed data
-    % 'free': head free data
-    % 'task': task data
+% conditions can be set by using the following flags:
+% 'all': all data
+% 'sweep': sweep data
+% 'grid': grid data
+% 'fixed': head fixed data
+% 'free': head free data
+% 'task': task data
 
 switch condFlag
     case 'all'

@@ -33,11 +33,11 @@ for i=1:length(dataGrid)
     errStdGrid(:,:,i) = dataGrid{i}.errStd;
 end
 
-errMeanAllMean = nanmean(errMeanAll,4);
-errMeanSweepMean = nanmean(errMeanSweep,4);
-errMeanGridMean = nanmean(errMeanGrid,4);
+errMeanAllMean = nanmean(errMeanAll,3);
+errMeanSweepMean = nanmean(errMeanSweep,3);
+errMeanGridMean = nanmean(errMeanGrid,3);
 
-errMeanAllStd = nanstd(errMeanAll,4);
-errMeanSweepStd = nanstd(errMeanSweep,4);
-errMeanGridStd = nanstd(errMeanGrid,4);
+errMeanAllStd = nanstd(errMeanAll,3);
+errMeanSweepStd = nanstd(errMeanSweep,3);
+errMeanGridStd = nanstd(errMeanGrid,3);
 

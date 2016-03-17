@@ -17,9 +17,13 @@ errStd = zeros(N,N);
 errDistErr = cell(N,N);
 
 errDistVec = [];
+errDistLen = [];
+
+k = 0;
 
 for i = 1:length(segments)
     for j = 1:length(segments)
+        
         % Define experiment for all on all
         exp_var.trainCond = segments{i};
         exp_var.testCond = segments{j};
@@ -32,24 +36,13 @@ for i = 1:length(segments)
         errDistErr{i,j} = errors.distErr/10;
         
         errDistVec = [errDistVec; errDistErr{i,j}];
+        errDistLen = [errDistLen, k*ones(1,length(errDistErr{i,j}))];
+        
+        k = k + 1
     end
 end
 
 %% Build some nice figures from the experiment
 figure;
-boxplot([errDistErr{1,1}],'Notch','on')
-
-%%
-
-c_1 = errDistErr{1,1};
-c_2 = errDistErr{2,1};
-c_3 = errDistErr{3,1};
-c_4 = errDistErr{4,1};
-c_5 = errDistErr{1,1};
-C = [c_1;c_2;c_3;c_4];
-n = ones(1,length(errDistErr{2,1}));
-grp = [0*n,1*n,2*n,3*n];
-figure;
-boxplot(C,grp,'Notch','on');
-
+boxplot(errDistVec,errDistLen,'Notch','on')
 

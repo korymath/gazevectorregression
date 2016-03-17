@@ -11,6 +11,12 @@ testCond = exp_var.testCond;
 % Load training data
 [eyeData,markerData,tM,offset,trueMarker,details] = collect_data({trainStr},trainStr(1:3),trainCond);
 
+if isempty(eyeData)
+    errors = NaN;
+    calType = 0;
+    return
+end
+
 % Build a model
 [predPos,predPosFilt,mdl] = build_models(eyeData,markerData);
 fitPoints = transform_head_to_vicon(predPosFilt,tM,offset);

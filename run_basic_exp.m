@@ -9,11 +9,11 @@
 k = dir([pwd '/data/*.mat']);
 files = {k.name}';
 
-for fileIdx = 1:2
+for fileIdx = 1:length(files)
     
     exp_var.trainStr = files{fileIdx};
     exp_var.testStr = files{fileIdx};
-    exp_var.fullExpStr = strcat(exp_var.trainStr,'_on_',exp_var.testStr,'_');
+    exp_var.fullExpStr = strcat(exp_var.trainStr,'_on_',exp_var.testStr,'.mat');
     
     segments = {'all','free','fixed','task'};
     N = length(segments);
@@ -39,10 +39,16 @@ for fileIdx = 1:2
                     exp_var.testStr,'_',exp_var.testCond);
                 [errors, calType] = exp_wrap(exp_var);
                 
-                errMean(i,j) = errors.meanErr;
-                errStd(i,j) = errors.stddevErr;
-                errDistErr{i,j} = errors.distErr/10;
-                
+                if (calType == 0)
+                    errMean(i,j) = 0;
+                    errStd(i,j) = 0;
+                    errDistErr{i,j} = 0;
+                else
+                    errMean(i,j) = errors.meanErr;
+                    errStd(i,j) = errors.stddevErr;
+                    errDistErr{i,j} = errors.distErr/10;
+                end
+
                 errDistVec = [errDistVec; errDistErr{i,j}];
                 errDistLen = [errDistLen, k*ones(1,length(errDistErr{i,j}))];
                 
@@ -51,8 +57,6 @@ for fileIdx = 1:2
             end
         end
         makefigs_group(exp_var.expStr,errDistVec,errDistLen,errMean);
-        exp_var.fullExpStr = strcat(exp_var.trainStr,'_on_',exp_var.testStr,'_CAL_',num2str(calType));
-        filename = [pwd '/data/proc/output_' exp_var.fullExpStr '.mat'];
         save(filename)
     else
         disp('file already processed');

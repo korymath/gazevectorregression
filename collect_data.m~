@@ -92,35 +92,25 @@ info = get_cal_info(allDetails);
 
 %% Use the conditions to return only the data for this experiment
 %   Use the condition flag to slice the data based on the condition given
-    % conditions can be set by using the following flags:
-    % 'all': all data
-    % 'sweep': sweep data
-    % 'grid': grid data
-    % 'fixed': head fixed data
-    % 'free': head free data
-    % 'task': task data
+% conditions can be set by using the following flags:
+% 0: all data
+% 1: sweep data
+% 2: grid data
+% 3: head fixed data
+% 4: head free data
+% 5: task data
 
 switch condFlag
-    case 'all'
-        slice = 1:size(dataIn.cData,1);
-    case 'sweep'
-        slice = info.sweepIdx;
-    case 'grid'
-        slice = info.gridIdx;
-    case 'fixed'
-        slice = info.headfreeIdx;
-    case 'free'
-        slice = info.headfixedIdx;
-    case 'task'
-        slice = info.taskIdx;
-    otherwise
-        slice = 1:size(dataIn.cData,1);
+    case 1
+        eyeData,markerData,transformMatrix,offset,trueMarker
+    case 2
+        disp('positive one')
+    case 3
+        disp('positive one')
+    case 4
+        disp('positive one')
+    case 5
+        disp('positive one')
 end
-
-eyeData = eyeData(slice,:);
-markerData = markerData(slice,:);
-transformMatrix = transformMatrix(:,:,slice);
-offset = offset(:,slice);
-trueMarker = trueMarker(slice,:);
 
 end

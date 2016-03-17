@@ -50,18 +50,21 @@ errors.distErr = sqrt(((testSet.regFixPoints(:,1) - testSet.trueMarker(:,1)).^2)
 errors.meanErr = nanmean(errors.distErr)/10;
 errors.stddevErr = nanstd(errors.distErr)/10;
 
-% make a prediction figure
-makefig_prediction_cart(testSet.trueMarker,testSet.regFixPoints)
+% % make a prediction figure
+% makefig_prediction_cart(testSet.trueMarker,testSet.regFixPoints)
+% 
+% % Make an error figure in CM
+% makefig_error_cart(errors.distErr/10,errors.meanErr)
+% 
+% filename = [pwd '/data/proc/output_' expStr '.csv'];
+% 
+% fid = fopen(filename, 'w');
+% fprintf(fid, 'fitPtX \t fitPtY \t fitPtZ \t LeftPupil_X \t LeftPupil_Y \t RightPupil_X \t RightPupil_Y \n');
+% fclose(fid);
+% 
+% dlmwrite(filename, [testSet.regFixPoints testSet.eyeData], '-append', 'precision', '%.6f', 'delimiter', '\t');
 
-% Make an error figure in CM
-makefig_error_cart(errors.distErr/10,errors.meanErr)
-
-filename = [pwd '/data/proc/output_' expStr '.csv'];
-
-fid = fopen(filename, 'w');
-fprintf(fid, 'fitPtX \t fitPtY \t fitPtZ \t LeftPupil_X \t LeftPupil_Y \t RightPupil_X \t RightPupil_Y \n');
-fclose(fid);
-
-dlmwrite(filename, [testSet.regFixPoints testSet.eyeData], '-append', 'precision', '%.6f', 'delimiter', '\t');
+errors.meanErr
+errors.stddevErr
 
 end

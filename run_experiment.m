@@ -10,7 +10,6 @@ expStr = strcat(trainStr,'_on_',testStr);
 % Some basic examples for finding indices groupings
 % the info array defines the calibration type, head movement type, and
 % calibration number.
-
 details.sweepIdx = find(info(:,1) == 1);
 details.gridIdx = find(info(:,1) == 2);
 

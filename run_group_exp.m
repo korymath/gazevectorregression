@@ -12,6 +12,4 @@ for i=1:length(files)
     end
 end
 
-
-
-errDistErr =
+errDistErr = 

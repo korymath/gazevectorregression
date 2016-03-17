@@ -70,6 +70,18 @@ for strNum = 1:length(strCell)
             print(ME);
         end
     end
+
+    if length(iVICON) < 5
+        try
+            iVICON = [find(strcmp(dataHeaders,'M:Wand:Tip:X')),...
+                find(strcmp(dataHeaders,['M:' subId '_3:RFHD:X'])),...
+                find(strcmp(dataHeaders,['M:' subId '_3:RBHD:X'])),...
+                find(strcmp(dataHeaders,['M:' subId '_3:LFHD:X'])),...
+                find(strcmp(dataHeaders,['M:' subId '_3:LBHD:X']))];
+        catch ME
+            print(ME);
+        end
+    end
     
     inputCols = [];
     for i=1:length(iVICON)

@@ -27,8 +27,8 @@ end
 % Hacky solution to make sure the transformation matrix exists for each
 % time step. TODO: Why doesn't it exist for the first time point? 
 % at least it helped me see the issue with the offset indexing
-testSet.tM(:,:,1) = testSet.tM(:,:,2);
-testSet.offset(:,1) = testSet.offset(:,2);
+% testSet.tM(:,:,1) = testSet.tM(:,:,2);
+% testSet.offset(:,1) = testSet.offset(:,2);
 
 testSet.regFixPoints = transform_head_to_vicon(testSet.predPosFilt,testSet.tM,testSet.offset);
 

@@ -11,18 +11,18 @@ expStr = strcat(trainStr,'_on_',testStr);
 % the info array defines the calibration type, head movement type, and
 % calibration number.
 
-info.sweepIdx = find(info(:,1) == 1);
-info.gridIdx = find(info(:,1) == 2);
+details.sweepIdx = find(info(:,1) == 1);
+details.gridIdx = find(info(:,1) == 2);
 
-info.headfreeIdx = find(info(:,2) == 1);
-info.headfixedIdx = find(info(:,2) == 2);
-info.taskIdx = find(info(:,2) == 3);
+details.headfreeIdx = find(info(:,2) == 1);
+details.headfixedIdx = find(info(:,2) == 2);
+details.taskIdx = find(info(:,2) == 3);
 
-info.cal1Idx = find(info(:,3) == 1);
-info.cal2Idx = find(info(:,3) == 2);
-info.cal3Idx = find(info(:,3) == 3);
-info.cal4Idx = find(info(:,3) == 4);
-info.cal5Idx = find(info(:,3) == 5);
+details.cal1Idx = find(info(:,3) == 1);
+details.cal2Idx = find(info(:,3) == 2);
+details.cal3Idx = find(info(:,3) == 3);
+details.cal4Idx = find(info(:,3) == 4);
+details.cal5Idx = find(info(:,3) == 5);
 
 % Build a model
 [predPos,predPosFilt,mdl] = build_models(eyeData,markerData);

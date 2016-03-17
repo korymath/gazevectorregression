@@ -9,47 +9,54 @@
 k = dir([pwd '/data/*.mat']);
 files = {k.name}';
 
-for fileIdx = 1:5
-
+for fileIdx = 1:2
+    
     exp_var.trainStr = files{fileIdx};
     exp_var.testStr = files{fileIdx};
-
+    exp_var.fullExpStr = strcat(exp_var.trainStr,'_on_',exp_var.testStr,'_');
+    
     segments = {'all','free','fixed','task'};
     N = length(segments);
-
+    
     errMean = zeros(N,N);
     errStd = zeros(N,N);
     errDistErr = cell(N,N);
-
+    
     errDistVec = [];
     errDistLen = [];
-
+    
     k = 1;
-
-    for i = 1:length(segments)
-        for j = 1:length(segments)
-
-            % Define experiment for all on all
-            exp_var.trainCond = segments{i};
-            exp_var.testCond = segments{j};
-            exp_var.expStr = strcat(exp_var.trainStr,'_',exp_var.trainCond,'_on_',...
-                exp_var.testStr,'_',exp_var.testCond);
-            errors = exp_wrap(exp_var);
-
-            errMean(i,j) = errors.meanErr;
-            errStd(i,j) = errors.stddevErr;
-            errDistErr{i,j} = errors.distErr/10;
-
-            errDistVec = [errDistVec; errDistErr{i,j}];
-            errDistLen = [errDistLen, k*ones(1,length(errDistErr{i,j}))];
-
-            k = k + 1;
-            disp(['iter: ' num2str(k)]);
+    
+    filename = [pwd '/data/proc/output_' exp_var.fullExpStr];
+    if ~(exist(filename, 'file') == 2)
+        for i = 1:length(segments)
+            for j = 1:length(segments)
+                
+                % Define experiment for all on all
+                exp_var.trainCond = segments{i};
+                exp_var.testCond = segments{j};
+                exp_var.expStr = strcat(exp_var.trainStr,'_',exp_var.trainCond,'_on_',...
+                    exp_var.testStr,'_',exp_var.testCond);
+                [errors, calType] = exp_wrap(exp_var);
+                
+                errMean(i,j) = errors.meanErr;
+                errStd(i,j) = errors.stddevErr;
+                errDistErr{i,j} = errors.distErr/10;
+                
+                errDistVec = [errDistVec; errDistErr{i,j}];
+                errDistLen = [errDistLen, k*ones(1,length(errDistErr{i,j}))];
+                
+                k = k + 1;
+                disp(['iter: ' num2str(k)]);
+            end
         end
+        makefigs_group(exp_var.expStr,errDistVec,errDistLen,errMean);
+        exp_var.fullExpStr = strcat(exp_var.trainStr,'_on_',exp_var.testStr,'_CAL_',num2str(calType));
+        filename = [pwd '/data/proc/output_' exp_var.fullExpStr '.mat'];
+        save(filename)
+    else
+        disp('file already processed');
     end
-    makefigs_group(exp_var.expStr,errDistVec,errDistLen,errMean);
-    filename = [pwd '/data/proc/output_' exp_var.expStr '.mat'];
-    save(filename)
 end
 
 

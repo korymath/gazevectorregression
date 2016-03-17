@@ -47,6 +47,18 @@ for strNum = 1:length(strCell)
         end
     end
     
+    if length(iVICON) < 5
+        try
+            iVICON = [find(strcmp(dataHeaders,'M:Wand:Tip:X')),...
+                find(strcmp(dataHeaders,['M:Head:RFRNT:X'])),...
+                find(strcmp(dataHeaders,['M:Head:RBCK:X'])),...
+                find(strcmp(dataHeaders,['M:Head:LFRNT:X'])),...
+                find(strcmp(dataHeaders,['M:Head:LBCK:X']))];
+        catch ME
+            print(ME);
+        end
+    end
+    
     inputCols = [];
     for i=1:length(iVICON)
         % order of the input columns needs to be strictly defined

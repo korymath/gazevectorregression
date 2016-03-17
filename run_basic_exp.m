@@ -6,8 +6,8 @@
 % 'free': head free data
 % 'task': task data
 
-exp_var.trainStr = 'A12_CalibC_E_01_combined_calNum1';
-exp_var.testStr = 'A12_CalibC_E_01_combined_calNum1';
+exp_var.trainStr = 'A52_CalibC_E_01_combined_calNum1';
+exp_var.testStr = 'A52_CalibC_E_01_combined_calNum1';
 
 segments = {'all','free','fixed','task'};
 N = length(segments);

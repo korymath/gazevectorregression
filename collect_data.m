@@ -108,9 +108,9 @@ switch condFlag
     case 'grid'
         slice = info.gridIdx;
     case 'fixed'
-        slice = info.headfreeIdx;
-    case 'free'
         slice = info.headfixedIdx;
+    case 'free'
+        slice = info.headfreeIdx;
     case 'task'
         slice = info.taskIdx;
     otherwise

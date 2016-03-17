@@ -36,10 +36,14 @@ figure;
 boxplot([errDistErr{1,1}],'Notch','on')
 
 %%
-c_1=rand(1,20);
-c_2=rand(1,100);
-C = [c_1 c_2];
-grp = [zeros(1,20),ones(1,100)];
-boxplot(C,grp)
+c_1 = errDistErr{1,1};
+c_2 = errDistErr{2,1};
+c_3 = errDistErr{3,1};
+c_4 = errDistErr{4,1};
+C = [c_1 c_2 c_3 c_4];
+n = ones(1,length(errDistErr{2,1}));
+grp = [0*n,1*n,2*n,3*n];
+figure;
+boxplot(C,grp,'Notch','on');
 
 

@@ -31,6 +31,15 @@ for i = 1:length(segments)
     end
 end
 
+%% Build some nice figures from the experiment
+figure;
+boxplot([errDistErr{1,1}],'Notch','on')
 
+%%
+c_1=errDistErr{1,1};
+c_2=rand(1,100);
+C = [c_1 c_2];
+grp = [zeros(1,20),ones(1,100)];
+boxplot(C,grp)
 
 

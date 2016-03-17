@@ -64,7 +64,4 @@ errors.stddevErr = nanstd(errors.distErr)/10;
 % 
 % dlmwrite(filename, [testSet.regFixPoints testSet.eyeData], '-append', 'precision', '%.6f', 'delimiter', '\t');
 
-errors.meanErr
-errors.stddevErr
-
 end

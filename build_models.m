@@ -8,7 +8,6 @@ mdl = cell(3,1);
 for i=1:3
     [predPos(:,i),mdl{i}] = build_single_model(eyeData,markerData(:,i));
     predPosFilt(:,i) = hampel(predPos(:,i),150);
-    disp(i);
 end
 
 end

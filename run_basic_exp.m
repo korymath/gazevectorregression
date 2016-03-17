@@ -16,6 +16,8 @@ errMean = zeros(N,N);
 errStd = zeros(N,N);
 errDistErr = cell(N,N);
 
+errDistVec = [];
+
 for i = 1:length(segments)
     for j = 1:length(segments)
         % Define experiment for all on all
@@ -28,6 +30,8 @@ for i = 1:length(segments)
         errMean(i,j) = errors.meanErr;
         errStd(i,j) = errors.stddevErr;
         errDistErr{i,j} = errors.distErr/10;
+        
+        errDistVec = [errDistVec; errDistErr{i,j}];
     end
 end
 
@@ -36,11 +40,13 @@ figure;
 boxplot([errDistErr{1,1}],'Notch','on')
 
 %%
+
 c_1 = errDistErr{1,1};
 c_2 = errDistErr{2,1};
 c_3 = errDistErr{3,1};
 c_4 = errDistErr{4,1};
-C = [c_1 c_2 c_3 c_4];
+c_5 = errDistErr{1,1};
+C = [c_1;c_2;c_3;c_4];
 n = ones(1,length(errDistErr{2,1}));
 grp = [0*n,1*n,2*n,3*n];
 figure;

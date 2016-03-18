@@ -45,6 +45,6 @@ errMeanAllStd = nanstd(errMeanAll,0,3)/sqrt(length(errMeanAll));
 errMeanSweepStd = nanstd(errMeanSweep,0,3)/sqrt(length(errMeanSweep));
 errMeanGridStd = nanstd(errMeanGrid,0,3)/sqrt(length(errMeanGrid));
 
-figure; imagesc(errMeanAllMean, [0 20]); colorbar; colormap(gray);
-figure; imagesc(errMeanSweepMean, [0 20]); colorbar; colormap(gray);
-figure; imagesc(errMeanGridMean, [0 20]); colorbar; colormap(gray);
+figure; imagesc(errMeanAllMean, [0 20]); colorbar; colormap(jet);
+figure; imagesc(errMeanSweepMean, [0 20]); colorbar; colormap(jet);
+figure; imagesc(errMeanGridMean, [0 20]); colorbar; colormap(jet);

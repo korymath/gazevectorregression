@@ -45,6 +45,27 @@ errMeanAllStd = nanstd(errMeanAll,0,3)/sqrt(length(errMeanAll));
 errMeanSweepStd = nanstd(errMeanSweep,0,3)/sqrt(length(errMeanSweep));
 errMeanGridStd = nanstd(errMeanGrid,0,3)/sqrt(length(errMeanGrid));
 
-figure; imagesc(errMeanAllMean, [0 20]); colorbar; colormap(gray);
-figure; imagesc(errMeanSweepMean, [0 20]); colorbar; colormap(gray);
-figure; imagesc(errMeanGridMean, [0 20]); colorbar; colormap(gray);
+f=figure; imagesc(errMeanAllMean, [0 50]); colorbar; colormap(hot);
+filename = [pwd '/data/proc/output_heatmap_comparison_all.png'];
+saveas(f,filename);
+f=figure; imagesc(errMeanSweepMean, [0 50]); colorbar; colormap(hot);
+filename = [pwd '/data/proc/output_heatmap_comparison_sweep.png'];
+saveas(f,filename);
+f=figure; imagesc(errMeanGridMean, [0 50]); colorbar; colormap(hot);
+filename = [pwd '/data/proc/output_heatmap_comparison_grid.png'];
+saveas(f,filename);
+% Create colormap that is green for negative, red for positive,
+% and a chunk inthe middle that is black.
+greenColorMap = [zeros(1, 132), linspace(0, 1, 124)];
+redColorMap = [linspace(1, 0, 124), zeros(1, 132)];
+colorMap = [redColorMap; greenColorMap; zeros(1, 256)]';
+%Plot Diff
+errMeanSweepMean(2,3)=0;
+errMeanSweepMean(3,2)=0;
+errMeanGridMean(2,3)=0;
+errMeanGridMean(3,2)=0;
+f=figure; imagesc(errMeanGridMean-errMeanSweepMean, [-20 20]); colorbar; colormap(colorMap);
+title('Comparative error for Grid minus Sweep')
+filename = [pwd '/data/proc/output_heatmap_comparison_sweepgriddiff.png'];
+saveas(f,filename);
+

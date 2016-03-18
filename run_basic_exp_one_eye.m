@@ -38,7 +38,7 @@ for fileIdx = 1:1
                 % Define experiment for all on all
                 exp_var.trainCond = segments{i};
                 exp_var.testCond = segments{j};
-                exp_var.expStr = strcat(exp_var.trainStr,'_',exp_var.trainCond,'_on_',...
+                exp_var.expStr = strcat('oneeye',exp_var.trainStr,'_',exp_var.trainCond,'_on_',...
                     exp_var.testStr,'_',exp_var.testCond);
                 [errors, calType] = exp_wrap(exp_var);
                 

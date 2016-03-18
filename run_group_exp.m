@@ -45,7 +45,6 @@ errMeanAllStd = nanstd(errMeanAll,0,3)/sqrt(length(errMeanAll));
 errMeanSweepStd = nanstd(errMeanSweep,0,3)/sqrt(length(errMeanSweep));
 errMeanGridStd = nanstd(errMeanGrid,0,3)/sqrt(length(errMeanGrid));
 
-<<<<<<< HEAD
 %% 
 f = figure('Position', [100, 100, 1200, 600]); 
 lbl = {'All','Free','Fixed','Task'};
@@ -81,7 +80,7 @@ set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl);
 
 filename = [pwd '/data/proc/group/output_group_BOX.jpg'];
 saveas(f2,filename);
-=======
+
 f=figure; imagesc(errMeanAllMean, [0 50]); colorbar; colormap(hot);
 filename = [pwd '/data/proc/output_heatmap_comparison_all.png'];
 title('All Mean Error')

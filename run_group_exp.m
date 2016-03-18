@@ -47,13 +47,31 @@ errMeanGridStd = nanstd(errMeanGrid,0,3)/sqrt(length(errMeanGrid));
 
 f=figure; imagesc(errMeanAllMean, [0 50]); colorbar; colormap(hot);
 filename = [pwd '/data/proc/output_heatmap_comparison_all.png'];
+title('All Mean Error')
 saveas(f,filename);
 f=figure; imagesc(errMeanSweepMean, [0 50]); colorbar; colormap(hot);
 filename = [pwd '/data/proc/output_heatmap_comparison_sweep.png'];
+title('Sweep Mean Error')
 saveas(f,filename);
 f=figure; imagesc(errMeanGridMean, [0 50]); colorbar; colormap(hot);
 filename = [pwd '/data/proc/output_heatmap_comparison_grid.png'];
+title('Grid Mean Error')
 saveas(f,filename);
+
+%StdErr
+f=figure; imagesc(errMeanAllStd, [0 10]); colorbar; colormap(parula);
+filename = [pwd '/data/proc/output_heatmap_comparison_stderr_all.png'];
+title('All StdErr')
+saveas(f,filename);
+f=figure; imagesc(errMeanSweepStd, [0 10]); colorbar; colormap(parula);
+filename = [pwd '/data/proc/output_heatmap_comparison_stderr_sweep.png'];
+title('Sweep StdErr')
+saveas(f,filename);
+f=figure; imagesc(errMeanGridStd, [0 10]); colorbar; colormap(parula);
+filename = [pwd '/data/proc/output_heatmap_comparison_stderr_grid.png'];
+title('Grid StdErr')
+saveas(f,filename);
+
 % Create colormap that is green for negative, red for positive,
 % and a chunk inthe middle that is black.
 greenColorMap = [zeros(1, 132), linspace(0, 1, 124)];

@@ -35,13 +35,16 @@ end
 
 errMeanAll(errMeanAll == 0) = NaN;
 errMeanSweep(errMeanSweep == 0) = NaN;
-errMeanGrid(errMeanGrid
+errMeanGrid(errMeanGrid == 0) = NaN;
 
-errMeanAllMean = mean(errMeanAll,3);
-errMeanSweepMean = mean(errMeanSweep,3);
-errMeanGridMean = mean(errMeanGrid,3);
+errMeanAllMean = nanmean(errMeanAll,3);
+errMeanSweepMean = nanmean(errMeanSweep,3);
+errMeanGridMean = nanmean(errMeanGrid,3);
 
-% errMeanAllStd = nanstd(errMeanAll,3);
-% errMeanSweepStd = nanstd(errMeanSweep,3);
-% errMeanGridStd = nanstd(errMeanGrid,3);
+errMeanAllStd = nanstd(errStdAll,0,3)/s;
+errMeanSweepStd = nanstd(errStdSweep,0,3);
+errMeanGridStd = nanstd(errStdGrid,0,3);
 
+figure; imagesc(errMeanAllMean, [0 20]); colorbar; colormap(gray);
+figure; imagesc(errMeanSweepMean, [0 20]); colorbar; colormap(gray);
+figure; imagesc(errMeanGridMean, [0 20]); colorbar; colormap(gray);

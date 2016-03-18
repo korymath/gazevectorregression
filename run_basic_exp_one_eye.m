@@ -18,7 +18,7 @@ for fileIdx = 1:1
     exp_var.fullExpStr = strcat(exp_var.trainStr,'_on_',exp_var.testStr,'.mat');
     
 %     segments = {'free_oneeye'}; %,'task','free_oneeye','task_oneeye'};
-    segments = {'free','task','free_oneeye','task_oneeye'};
+    segments = {'free_oneeye','task_oneeye'};
     N = length(segments);
     
     errMean = zeros(N,N);

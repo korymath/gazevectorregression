@@ -9,7 +9,7 @@
 k = dir([pwd '/data/*.mat']);
 files = {k.name}';
 
-for fileIdx = 1:length(files)
+for fileIdx = 1:length(files
     
     exp_var.trainStr = files{fileIdx};
     exp_var.testStr = files{fileIdx};

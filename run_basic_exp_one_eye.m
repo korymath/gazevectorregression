@@ -6,17 +6,19 @@
 % 'free': head free data
 % 'task': task data
 
+% 'oneeye': use only left eye
+
 k = dir([pwd '/data/*.mat']);
 files = {k.name}';
 
-for fileIdx = 1:length(files)
+for fileIdx = 1:1
     
     exp_var.trainStr = files{fileIdx};
     exp_var.testStr = files{fileIdx};
     exp_var.fullExpStr = strcat(exp_var.trainStr,'_on_',exp_var.testStr,'.mat');
     
-%     segments = {'free','task'};
-    segments = {'all','free','fixed','task'};
+%     segments = {'free_oneeye'}; %,'task','free_oneeye','task_oneeye'};
+    segments = {'free','task','free_oneeye','task_oneeye'};
     N = length(segments);
     
     errMean = zeros(N,N);
@@ -28,7 +30,7 @@ for fileIdx = 1:length(files)
     
     k = 1;
     
-    filename = [pwd '/data/proc/output_' exp_var.fullExpStr];
+    filename = [pwd '/data/oneeye/output_' exp_var.fullExpStr];
     if ~(exist(filename, 'file') == 2)
         for i = 1:length(segments)
             for j = 1:length(segments)
@@ -53,8 +55,8 @@ for fileIdx = 1:length(files)
                 errDistVec = [errDistVec; errDistErr{i,j}];
                 errDistLen = [errDistLen, k*ones(1,length(errDistErr{i,j}))];
                 
-                k = k + 1;
                 disp(['iter: ' num2str(k)]);
+                k = k + 1;
             end
         end
         makefigs_group(exp_var.expStr,errDistVec,errDistLen,errMean);

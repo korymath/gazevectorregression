@@ -135,7 +135,6 @@ info = get_cal_info(allDetails);
 % 'fixed': head fixed data
 % 'free': head free data
 % 'task': task data
-eye_slice = 1:4;
 
 switch condFlag
     case 'all'
@@ -152,15 +151,13 @@ switch condFlag
         slice = info.taskIdx;
     case 'free_oneeye'
         slice = info.headfreeIdx;
-        eye_slice = 1:2;
     case 'task_oneeye'
         slice = info.taskIdx;
-        eye_slice = 1:2;
     otherwise
         slice = 1:size(dataIn.cData,1);
 end
 
-eyeData = eyeData(slice,eye_slice);
+eyeData = eyeData(slice,:);
 markerData = markerData(slice,:);
 transformMatrix = transformMatrix(:,:,slice);
 offset = offset(:,slice);

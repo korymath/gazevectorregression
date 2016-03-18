@@ -82,7 +82,7 @@ errMeanSweepMean(2,3)=0;
 errMeanSweepMean(3,2)=0;
 errMeanGridMean(2,3)=0;
 errMeanGridMean(3,2)=0;
-f=figure; imagesc(errMeanGridMean-errMeanSweepMean, [-20 20]); colorbar; colormap(colorMap);
+f=figure; imagesc(errMeanGridMean-errMeanSweepMean, [-10 10]); colorbar; colormap(colorMap);
 title('Comparative error for Grid minus Sweep')
 filename = [pwd '/data/proc/output_heatmap_comparison_sweepgriddiff.png'];
 saveas(f,filename);

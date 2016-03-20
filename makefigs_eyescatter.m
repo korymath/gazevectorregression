@@ -6,7 +6,8 @@ k = dir([pwd '/data/*.mat']);
 files = {k.name}';
 
 % TODO: add coverage (barplot) and density (boxpot) measures for
-% all,sweep,grid with fixed,free,task
+% all,sweep,grid with fixed,free,task (histogram? plotmatrix? also, 
+% add note about number of samples for each methods)
 
 for i=1:length(files)
     [eyeData,markerData,tM,offset,trueMarker,details] = collect_data({files{i}},files{i}(1:3),'all');

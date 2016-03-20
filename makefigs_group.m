@@ -13,5 +13,8 @@ imagesc(errMean); colorbar; colormap(jet);
 filename = [pwd '/data/proc/output_' str '_HEAT.jpg'];
 saveas(f,filename);
 
+% TODO: add time series error plot as per Kory's earlier examples, so we
+% can see where things go wrong / right on a step by step basis.
+
 end
 

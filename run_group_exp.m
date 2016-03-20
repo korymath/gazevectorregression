@@ -50,12 +50,12 @@ f = figure('Position', [100, 100, 1200, 600]);
 lbl = {'All','Free','Fixed','Task'};
 % subplot(131); imagesc(errMeanAllMean, [0 20]); colorbar; colormap(jet); title('Mean Error All (cm)')
 % set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl); set(gca,'ytick',[1 2 3 4]); set(gca,'yticklabel',lbl);
-subplot(121); imagesc(errMeanSweepMean, [0 20]); colorbar; colormap(jet); title('Mean Error Sweep (cm)')
+subplot(1,2,1); imagesc(errMeanSweepMean, [0 50]); colorbar; colormap(hot); title('Mean Error Sweep (cm)');
 set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl); set(gca,'ytick',[1 2 3 4]); set(gca,'yticklabel',lbl);
-subplot(122); imagesc(errMeanGridMean, [0 20]); colorbar; colormap(jet); title('Mean Error Grid (cm)')
+subplot(1,2,2); imagesc(errMeanGridMean, [0 50]); colorbar; colormap(hot); title('Mean Error Grid (cm)');
 set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl); set(gca,'ytick',[1 2 3 4]); set(gca,'yticklabel',lbl);
 
-filename = [pwd '/data/proc/group/output_group_HEAT.jpg'];
+filename = [pwd '/data/proc/group/output_group_HEAT.png'];
 saveas(f,filename);
 
 %% 
@@ -72,40 +72,54 @@ f2 = figure('Position', [100, 100, 1200, 1200]);
 errVec = [t_1; t_2; t_3; t_4];
 grp = [0*ones(1,length(t_1)), 1*ones(1,length(t_2)), 2*ones(1,length(t_3)), ...
     3*ones(1,length(t_4))];
-h= boxplot(errVec,grp,'Notch','on');
+h= boxplot(errVec,grp,'Notch','off');
 set(h(7,:),'Visible','off') % hide outliers
 ylim([0 100])
 lbl = {'Sweep Free/Task', 'Grid Free/Task','Sweep Fixed/Task', 'Grid Fixed/Task'};
 set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl);
-
-filename = [pwd '/data/proc/group/output_group_BOX.jpg'];
+ylabel('Error (cm)')
+title('Comparison of calibration paradigms as tested on task sequences')
+filename = [pwd '/data/proc/group/output_group_BOX.png'];
 saveas(f2,filename);
 
+% Individual Mean Plots
 f=figure; imagesc(errMeanAllMean, [0 50]); colorbar; colormap(hot);
-filename = [pwd '/data/proc/output_heatmap_comparison_all.png'];
-title('All Mean Error')
+filename = [pwd '/data/proc/group/output_heatmap_comparison_all.png'];
+title('Mean Error Grid (cm)')
+lbl = {'All','Free','Fixed','Task'};
+set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl); set(gca,'ytick',[1 2 3 4]); set(gca,'yticklabel',lbl);
 saveas(f,filename);
 f=figure; imagesc(errMeanSweepMean, [0 50]); colorbar; colormap(hot);
-filename = [pwd '/data/proc/output_heatmap_comparison_sweep.png'];
-title('Sweep Mean Error')
+filename = [pwd '/data/proc/group/output_heatmap_comparison_sweep.png'];
+title('Mean Error Sweep (cm)')
+lbl = {'All','Free','Fixed','Task'};
+set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl); set(gca,'ytick',[1 2 3 4]); set(gca,'yticklabel',lbl);
 saveas(f,filename);
 f=figure; imagesc(errMeanGridMean, [0 50]); colorbar; colormap(hot);
-filename = [pwd '/data/proc/output_heatmap_comparison_grid.png'];
-title('Grid Mean Error')
+filename = [pwd '/data/proc/group/output_heatmap_comparison_grid.png'];
+title('Mean Error Grid (cm)')
+lbl = {'All','Free','Fixed','Task'};
+set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl); set(gca,'ytick',[1 2 3 4]); set(gca,'yticklabel',lbl);
 saveas(f,filename);
 
 %StdErr
 f=figure; imagesc(errMeanAllStd, [0 10]); colorbar; colormap(parula);
-filename = [pwd '/data/proc/output_heatmap_comparison_stderr_all.png'];
-title('All StdErr')
+filename = [pwd '/data/proc/group/output_heatmap_comparison_stderr_all.png'];
+title('StdErr All (cm)')
+lbl = {'All','Free','Fixed','Task'};
+set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl); set(gca,'ytick',[1 2 3 4]); set(gca,'yticklabel',lbl);
 saveas(f,filename);
 f=figure; imagesc(errMeanSweepStd, [0 10]); colorbar; colormap(parula);
-filename = [pwd '/data/proc/output_heatmap_comparison_stderr_sweep.png'];
-title('Sweep StdErr')
+lbl = {'All','Free','Fixed','Task'};
+set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl); set(gca,'ytick',[1 2 3 4]); set(gca,'yticklabel',lbl);
+filename = [pwd '/data/proc/group/output_heatmap_comparison_stderr_sweep.png'];
+title('StdErr Sweep (cm)')
 saveas(f,filename);
 f=figure; imagesc(errMeanGridStd, [0 10]); colorbar; colormap(parula);
-filename = [pwd '/data/proc/output_heatmap_comparison_stderr_grid.png'];
-title('Grid StdErr')
+lbl = {'All','Free','Fixed','Task'};
+set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl); set(gca,'ytick',[1 2 3 4]); set(gca,'yticklabel',lbl);
+filename = [pwd '/data/proc/group/output_heatmap_comparison_stderr_grid.png'];
+title('StdErr Grid (cm)')
 saveas(f,filename);
 
 % Create colormap that is green for negative, red for positive,
@@ -119,8 +133,9 @@ errMeanSweepMean(3,2)=0;
 errMeanGridMean(2,3)=0;
 errMeanGridMean(3,2)=0;
 f=figure; imagesc(errMeanGridMean-errMeanSweepMean, [-10 10]); colorbar; colormap(colorMap);
-title('Comparative error for Grid minus Sweep')
-filename = [pwd '/data/proc/output_heatmap_comparison_sweepgriddiff.png'];
+title('Comparative error for Grid minus Sweep (cm)')
+lbl = {'All','Free','Fixed','Task'};
+set(gca,'xtick',[1 2 3 4]); set(gca,'xticklabel',lbl); set(gca,'ytick',[1 2 3 4]); set(gca,'yticklabel',lbl);
+filename = [pwd '/data/proc/group/output_heatmap_comparison_sweepgriddiff.png'];
 saveas(f,filename);
->>>>>>> origin/master
 

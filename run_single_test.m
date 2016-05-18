@@ -23,3 +23,4 @@ exp_var.trainStr = 'A12_CalibC_B_01_combined_calNum3.mat';
 % 
 % angle = atan2(norm(cross(a,b)),dot(a,b));
 % angle_degrees = rad2deg(angle);
+

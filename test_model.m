@@ -26,29 +26,15 @@ end
 
 testSet.regFixPoints = transform_head_to_vicon(testSet.predPosFilt,testSet.tM,testSet.offset);
 
-% Mean Squared Error
-errors.MSEXerr = nanmean((testSet.regFixPoints(:,1) - testSet.trueMarker(:,1)).^2);
-errors.MSEYerr = nanmean((testSet.regFixPoints(:,2) - testSet.trueMarker(:,2)).^2);
-errors.MSEZerr = nanmean((testSet.regFixPoints(:,3) - testSet.trueMarker(:,3)).^2);
+% make a function to be able to get the errors from arbitrary in and out
+% points, specifically it should be able to handle the head space
+% coordinates 
 
-% Root MSE
-errors.RMSEX = sqrt(errors.MSEXerr);
-errors.RMSEY = sqrt(errors.MSEYerr);
-errors.RMSEZ = sqrt(errors.MSEZerr);
+% get the errors in the world coordinate system
+errors = get_error_measures(testSet.regFixPoints,testSet.trueMarker);
 
-% Normalized RMSE
-errors.NRMSEX = 100*sqrt(errors.MSEXerr)/(max(testSet.trueMarker(:,1))-min(testSet.trueMarker(:,1)));
-errors.NRMSEY = 100*sqrt(errors.MSEYerr)/(max(testSet.trueMarker(:,2))-min(testSet.trueMarker(:,2)));
-errors.NRMSEZ = 100*sqrt(errors.MSEZerr)/(max(testSet.trueMarker(:,3))-min(testSet.trueMarker(:,3)));
-
-% Calculate error in distance at every point
-errors.distErr = sqrt(((testSet.regFixPoints(:,1) - testSet.trueMarker(:,1)).^2) + ...
-    ((testSet.regFixPoints(:,2) - testSet.trueMarker(:,2)).^2) + ...
-    ((testSet.regFixPoints(:,3) - testSet.trueMarker(:,3)).^2));
-
-% This provides the mean error in CM.
-errors.meanErr = nanmean(errors.distErr)/10;
-errors.stddevErr = nanstd(errors.distErr)/10;
+% get the errors in the head coordinate system
+errors.errorsHeadSpace = get_error_measures(testSet.predPosFilt,testSet.markerData);
 
 % % make a prediction figure
 % makefig_prediction_cart(testSet.trueMarker,testSet.regFixPoints)

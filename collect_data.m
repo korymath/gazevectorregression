@@ -122,7 +122,7 @@ trueMarker = allVICON(:,1:3);
 
 eyeData = allDLAB;
 
-% Get the calibration information indecies
+% Get the calibration information indicies
 info = get_cal_info(allDetails);
 
 

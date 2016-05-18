@@ -31,8 +31,8 @@ save([pwd '/data/proc/testSet_' expStr '.mat']);
 [trainSet,testSet,errors] = test_model(expStr);
 
 % remove the training and testing saved data
-delete([pwd '/data/proc/trainSet_' expStr '.mat']);
-delete([pwd '/data/proc/testSet_' expStr '.mat']);
+% delete([pwd '/data/proc/trainSet_' expStr '.mat']);
+% delete([pwd '/data/proc/testSet_' expStr '.mat']);
 
 calType = 1;
 if ~isempty(details.gridIdx)

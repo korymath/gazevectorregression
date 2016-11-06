@@ -15,8 +15,10 @@ for fileIdx = 1:length(files)
     exp_var.testStr = files{fileIdx};
     exp_var.fullExpStr = strcat(exp_var.trainStr,'_on_',exp_var.testStr,'.mat');
     
+    segments = {'all'};
+    
 %     segments = {'free','task'};
-    segments = {'all','free','fixed','task'};
+%     segments = {'all','free','fixed','task'};
     N = length(segments);
     
     errMean = zeros(N,N);

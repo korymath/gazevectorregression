@@ -37,10 +37,10 @@ errors = get_error_measures(testSet.regFixPoints,testSet.trueMarker);
 errors.errorsHeadSpace = get_error_measures(testSet.predPosFilt,testSet.markerData);
 
 % % make a prediction figure
-% makefig_prediction_cart(testSet.trueMarker,testSet.regFixPoints)
+makefig_prediction_cart(testSet.trueMarker,testSet.regFixPoints)
 % 
 % % Make an error figure in CM
-% makefig_error_cart(errors.distErr/10,errors.meanErr)
+makefig_error_cart(errors.distErr/10,errors.meanErr)
 % 
 % filename = [pwd '/data/proc/output_' expStr '.csv'];
 % 

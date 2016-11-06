@@ -8,15 +8,29 @@ function [ details ] = get_cal_info( info )
 details.sweepIdx = find(info(:,1) == 1);
 details.gridIdx = find(info(:,1) == 2);
 % Head Movement Type
-details.headfreeIdx = find(info(:,2) == 1);
-details.headfixedIdx = find(info(:,2) == 2);
-details.taskIdx = find(info(:,2) == 3);
+% TODO: all free, mark all as free
+details.headfreeIdx = find(info(:,1) == 1);
+details.headfixedIdx = find(info(:,1) == 2);
+details.taskIdx = find(info(:,1) == 3);
 % Calibration Number
-details.cal1Idx = find(info(:,3) == 1);
-details.cal2Idx = find(info(:,3) == 2);
-details.cal3Idx = find(info(:,3) == 3);
-details.cal4Idx = find(info(:,3) == 4);
-details.cal5Idx = find(info(:,3) == 5);
+%
+details.cal1Idx = find(info(:,1) == 1);
+details.cal2Idx = find(info(:,1) == 2);
+details.cal3Idx = find(info(:,1) == 3);
+details.cal4Idx = find(info(:,1) == 4);
+details.cal5Idx = find(info(:,1) == 5);
+
+% % Head Movement Type
+% details.headfreeIdx = find(info(:,2) == 1);
+% details.headfixedIdx = find(info(:,2) == 2);
+% details.taskIdx = find(info(:,2) == 3);
+% % Calibration Number
+% details.cal1Idx = find(info(:,3) == 1);
+% details.cal2Idx = find(info(:,3) == 2);
+% details.cal3Idx = find(info(:,3) == 3);
+% details.cal4Idx = find(info(:,3) == 4);
+% details.cal5Idx = find(info(:,3) == 5);
+
 
 end
 

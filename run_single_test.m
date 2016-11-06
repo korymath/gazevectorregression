@@ -7,6 +7,7 @@ exp_var.trainStr = 'R12_CalibC_B_01_combined_segments.mat';
 
 [ errors, calType ] = exp_wrap( exp_var );
 
+%% Old outputs commented out
 % % Length of the vectors in head space
 % a = markerData(1,:);
 % b = predPosFilt(1,:);

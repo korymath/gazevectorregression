@@ -12,9 +12,9 @@ Data files as *.mat files should be located in
 /data
 ```
 
-run_single_test provides a single experiment 
+run_basic_exp will run on all *.mat files in the /data folder.
 
-Need to set train and test data files
+run_single_test provides a single experiment and you need to set train and test data files
 
 ## Model building
 
